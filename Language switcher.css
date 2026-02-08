@@ -1,0 +1,42 @@
+/* Language Switcher Styles */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+}
+
+.language-select {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.language-select:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-tertiary);
+}
+
+.language-select:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(0, 255, 157, 0.2);
+}
+
+.language-select option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.5rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .language-select {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
