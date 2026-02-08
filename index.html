@@ -1,25 +1,19 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybersecurity Architect | Portfolio</title>
-    <meta name="description" content="Security Architect specializzato in Zero Trust, cloud security e architetture enterprise.">
-    
+    <title>Yann Goufack • Architecte Cybersécurité</title>
+    <meta name="description" content="Architecte cybersécurité spécialisé Zero Trust, cloud security, architectures d'entreprise.">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Language Switcher CSS -->
-    <link rel="stylesheet" href="css/language-switcher.css">
-    
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* RESET + THEME */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --bg-primary: #0a0e14;
@@ -29,389 +23,576 @@
             --text-primary: #e6edf3;
             --text-secondary: #8b9bb4;
             --gradient-cyber: linear-gradient(135deg, #00ff9d 0%, #00d4ff 100%);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Outfit', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Animated background */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* ANIMATED BG - MATRIX + ORBES */
         .bg-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 0;
+            pointer-events: none;
         }
-
-        /* Matrix-style falling code effect */
         .matrix-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background-image: 
-                linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+                linear-gradient(rgba(0,255,157,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,157,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 25s linear infinite;
         }
-
         @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            0% { transform: translate(0,0); }
+            100% { transform: translate(60px,60px); }
         }
-
-        /* Glowing orbs */
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.3;
-            animation: float 20s ease-in-out infinite;
+            filter: blur(50px);
+            opacity: 0.25;
+            animation: float 18s ease-in-out infinite;
         }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--accent-primary);
-            top: 10%;
-            left: 20%;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent-secondary);
-            bottom: 20%;
-            right: 15%;
-            animation-delay: 5s;
-        }
-
+        .orb-1 { width: 350px; height: 350px; background: var(--accent-primary); top: 15%; left: 10%; animation-delay: 0s; }
+        .orb-2 { width: 280px; height: 280px; background: var(--accent-secondary); bottom: 25%; right: 10%; animation-delay: 6s; }
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
+            0%,100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(25px,-25px) scale(1.05); }
+            66% { transform: translate(-15px,15px) scale(0.95); }
         }
 
-        /* Main content */
-        .intro-container {
-            position: relative;
-            z-index: 1;
-            height: 100vh;
+        /* LOADER */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease;
+        }
+        .loading-screen.hidden { opacity: 0; pointer-events: none; }
+        .loading-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            inset-inline: 0;
+            top: 0;
+            background: rgba(10,14,20,0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,255,157,0.2);
+            z-index: 1000;
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+        }
+        .logo {
+            color: var(--accent-primary);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.6rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            position: relative;
+            transition: color var(--transition);
+        }
+        .nav-links a::before {
+            content: '>';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: opacity var(--transition), left var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+        .nav-links a:hover::before {
+            opacity: 1;
+            left: -20px;
+        }
+        .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0,255,157,0.3);
+            color: var(--accent-primary);
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* INTRO SCREEN */
+        .intro {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             padding: 2rem;
+            position: relative;
+            z-index: 1;
         }
-
-        /* Glitch effect text */
-        .glitch-wrapper {
-            margin-bottom: 2rem;
-        }
-
-        .glitch {
+        .glitch-text {
             font-family: 'JetBrains Mono', monospace;
             font-size: 1rem;
             color: var(--accent-primary);
-            letter-spacing: 3px;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
             opacity: 0;
-            animation: fadeIn 0.8s ease forwards 0.5s;
+            animation: fadeIn 1s ease forwards 0.4s, typing 3s steps(30) 0.4s forwards;
+            border-right: 2px solid var(--accent-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 0;
         }
-
-        /* Main title */
-        .main-title {
-            font-size: clamp(3rem, 8vw, 7rem);
+        @keyframes typing {
+            to { max-width: 100%; border-right: none; }
+        }
+        .hero-title {
+            font-size: clamp(3.5rem, 10vw, 8rem);
             font-weight: 900;
-            line-height: 1.1;
+            line-height: 1;
             margin-bottom: 1.5rem;
             opacity: 0;
-            animation: fadeInUp 1s ease forwards 1s;
+            animation: fadeInUp 1.2s ease forwards 1.2s;
         }
-
         .gradient-text {
             background: var(--gradient-cyber);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            position: relative;
         }
-
-        /* Subtitle */
-        .subtitle {
-            font-size: clamp(1.2rem, 3vw, 2rem);
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2.2rem);
             color: var(--text-secondary);
             font-weight: 300;
             margin-bottom: 3rem;
-            max-width: 800px;
+            max-width: 700px;
             opacity: 0;
-            animation: fadeInUp 1s ease forwards 1.3s;
+            animation: fadeInUp 1s ease forwards 1.6s;
         }
-
-        /* CTA Button */
         .enter-btn {
-            padding: 1.5rem 3rem;
-            font-size: 1.2rem;
+            padding: 1.4rem 3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             background: var(--gradient-cyber);
             color: var(--bg-primary);
             border: none;
-            border-radius: 12px;
+            border-radius: var(--radius);
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             opacity: 0;
-            animation: fadeInUp 1s ease forwards 1.6s;
+            animation: fadeInUp 1s ease forwards 2s, shine 0.6s ease 2.5s;
+            transition: all var(--transition);
         }
-
         .enter-btn::before {
             content: '';
             position: absolute;
-            top: 0;
+            inset: 0;
             left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
         }
-
         .enter-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0, 255, 157, 0.4);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 45px rgba(0,255,157,0.4);
         }
-
-        .enter-btn:hover::before {
-            left: 100%;
-        }
-
-        /* Scroll indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 2s, bounce 2s ease-in-out infinite 3s;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            width: 2px;
-            height: 40px;
-            background: var(--accent-primary);
-            margin: 0 auto 10px;
-            border-radius: 2px;
-        }
-
-        .scroll-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-
-        /* Typing effect */
-        .typing-text {
-            overflow: hidden;
-            border-right: 3px solid var(--accent-primary);
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: 2px;
-            animation: 
-                typing 3.5s steps(40, end) 0.5s forwards,
-                blink-caret 0.75s step-end infinite;
-            max-width: 0;
-        }
-
-        @keyframes typing {
-            from { max-width: 0; }
-            to { max-width: 100%; }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--accent-primary); }
-        }
-
-        /* Skills preview */
         .skills-preview {
             display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
             flex-wrap: wrap;
             justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2.5rem;
             opacity: 0;
-            animation: fadeIn 1s ease forwards 1.9s;
+            animation: fadeIn 1s ease forwards 2.3s;
         }
-
         .skill-badge {
-            padding: 0.5rem 1rem;
-            background: rgba(0, 255, 157, 0.1);
-            border: 1px solid rgba(0, 255, 157, 0.3);
-            border-radius: 6px;
-            font-size: 0.9rem;
+            padding: 0.5rem 1.1rem;
+            background: rgba(0,255,157,0.12);
+            border: 1px solid rgba(0,255,157,0.3);
+            border-radius: var(--radius);
+            font-size: 0.85rem;
             color: var(--accent-primary);
             font-family: 'JetBrains Mono', monospace;
-            transition: all 0.3s ease;
+            transition: all var(--transition);
         }
-
         .skill-badge:hover {
-            background: rgba(0, 255, 157, 0.2);
+            background: rgba(0,255,157,0.25);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
+            box-shadow: 0 8px 25px rgba(0,255,157,0.25);
         }
 
-        /* Page transition */
-        body.fade-out {
-            animation: fadeOut 0.5s ease forwards;
+        /* TRANSITION */
+        .page-transition-enter {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+        }
+        body.transitioning { overflow: hidden; }
+
+        /* PORTFOLIO SECTIONS */
+        .portfolio-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 6rem 0;
+            position: relative;
+            z-index: 2;
+        }
+        .portfolio-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .section-tag {
+            color: var(--accent-primary);
+            font-size: 0.85rem;
+            margin-bottom: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.1em;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .section-desc {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
 
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: scale(0.95);
-            }
+        /* ABOUT */
+        #about { background: var(--bg-secondary); }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 3rem;
+        }
+        .about-text p {
+            margin-bottom: 1.3rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .skills-list {
+            list-style: none;
+        }
+        .skills-list li {
+            padding: 0.5rem 0 0.5rem 1rem;
+            border-left: 2px solid var(--accent-primary);
+            margin-bottom: 0.6rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
         }
 
-        /* Responsive */
+        /* EXPERTISE */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .expertise-card {
+            background: rgba(17,24,34,0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,255,157,0.2);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all var(--transition);
+        }
+        .expertise-card:hover {
+            border-color: var(--accent-primary);
+            background: rgba(17,24,34,0.9);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(0,255,157,0.15);
+        }
+        .expertise-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+        }
+        .expertise-title {
+            color: var(--accent-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .expertise-list {
+            list-style: none;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+        .expertise-list li + li { margin-top: 0.3rem; }
+        .expertise-list li::before {
+            content: "▸ ";
+            color: var(--accent-primary);
+        }
+
+        /* TOOLS */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.6rem;
+        }
+        .tool-card {
+            background: rgba(17,24,34,0.7);
+            border: 1px solid rgba(0,255,157,0.15);
+            border-radius: var(--radius);
+            padding: 1.6rem;
+            text-align: center;
+            transition: all var(--transition);
+        }
+        .tool-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+        .tool-title {
+            color: var(--accent-primary);
+            margin-bottom: 0.4rem;
+            font-size: 1rem;
+        }
+        .tool-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 45px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-primary);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -3px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            border: 2px solid var(--bg-primary);
+        }
+        .timeline-date {
+            color: var(--accent-primary);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .timeline-title {
+            font-size: 1.15rem;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-company {
+            color: var(--accent-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.7rem;
+        }
+        .timeline-text {
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+        }
+        .timeline-points {
+            list-style: none;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+        .timeline-points li + li { margin-top: 0.25rem; }
+        .timeline-points li::before {
+            content: "→ ";
+            color: var(--accent-primary);
+        }
+
+        /* CONTACT */
+        #contact { background: var(--bg-secondary); }
+        .contact-inner {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+        .contact-link {
+            font-size: 2rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all var(--transition);
+        }
+        .contact-link:hover {
+            color: var(--accent-primary);
+            transform: translateY(-6px);
+        }
+
+        footer {
+            border-top: 1px solid rgba(0,255,157,0.2);
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Menu burger à ajouter si besoin */
+        }
         @media (max-width: 768px) {
-            .main-title {
-                font-size: 3rem;
-            }
+            .hero-title { font-size: 3.5rem; }
+            .expertise-grid, .tools-grid { grid-template-columns: 1fr; }
+            .contact-links { gap: 1.5rem; }
+            .contact-link { font-size: 1.6rem; }
+        }
 
-            .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .enter-btn {
-                padding: 1.2rem 2.5rem;
-                font-size: 1rem;
-            }
-
-            .skills-preview {
-                gap: 0.5rem;
-            }
-
-            .skill-badge {
-                font-size: 0.75rem;
-                padding: 0.4rem 0.8rem;
-            }
+        /* ANIMATIONS */
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <!-- Animated background -->
+    <!-- BG ANIMÉ -->
     <div class="bg-container">
         <div class="matrix-bg"></div>
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
     </div>
 
-    <!-- Main intro content -->
-    <div class="intro-container">
-        <div class="glitch-wrapper">
-            <div class="glitch typing-text">// CYBERSECURITY ARCHITECT</div>
-        </div>
-
-        <h1 class="main-title">
-            Architetto di <br>
-            <span class="gradient-text">Sicurezza Digitale</span>
-        </h1>
-
-        <p class="subtitle">
-            Zero Trust · Cloud Security · Enterprise Architecture
-        </p>
-
-        <a href="Portfolio.html" class="enter-btn" id="enterBtn">
-            Esplora il Portfolio →
-        </a>
-
-        <div class="skills-preview">
-            <span class="skill-badge">SABSA</span>
-            <span class="skill-badge">Zero Trust</span>
-            <span class="skill-badge">AWS/Azure/GCP</span>
-            <span class="skill-badge">Kubernetes</span>
-            <span class="skill-badge">NIST CSF</span>
-        </div>
-
-        <div class="scroll-indicator">
-            <span></span>
-            <div class="scroll-text">SCROLL</div>
-        </div>
+    <!-- LOADER -->
+    <div class="loading-screen" id="loader">
+        <div class="loading-text">booting security stack...</div>
     </div>
 
-    <script>
-        // Smooth page transition
-        const enterBtn = document.getElementById('enterBtn');
-        
-        enterBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.body.classList.add('fade-out');
-            
-            setTimeout(() => {
-                window.location.href = 'Portfolio.html';
-            }, 500);
-        });
+    <!-- NAV -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="#home" class="logo">&lt;Cyber.Architect/&gt;</a>
+            <ul class="nav-links">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#tools">Outils</a></li>
+                <li><a href="#experience">Parcours</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <select class="lang-select" id="lang">
+                <option value="fr" selected>FR</option>
+                <option value="en">EN</option>
+            </select>
+        </div>
+    </nav>
 
-        // Particle effect on mouse move (subtle)
-        let mouseX = 0, mouseY = 0;
-        let orb1 = document.querySelector('.orb-1');
-        let orb2 = document.querySelector('.orb-2');
+    <!-- INTRO / HERO -->
+    <section class="intro fade-in" id="home">
+        <div class="glitch-text">// ARCHITECTE CYBERSÉCURITÉ</div>
+        <h1 class="hero-title">
+            <span class="gradient-text">Yann Goufack</span>
+        </h1>
+        <p class="hero-subtitle">
+            Zero Trust • Cloud Security • Architectures d’entreprise résilientes
+        </p>
+        <a href="#expertise" class="enter-btn">Découvrir mon expertise →</a>
+        <div class="skills-preview">
+            <span class="skill-badge">Zero Trust</span>
+            <span class="skill-badge">AWS Security</span>
+            <span class="skill-badge">Kubernetes</span>
+            <span class="skill-badge">NIST</span>
+            <span class="skill-badge">ISO 27001</span>
+        </div>
+    </section>
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX / window.innerWidth;
-            mouseY = e.clientY / window.innerHeight;
-            
-            orb1.style.transform = `translate(${mouseX * 30}px, ${mouseY * 30}px)`;
-            orb2.style.transform = `translate(${-mouseX * 20}px, ${-mouseY * 20}px)`;
-        });
+    <!-- ABOUT -->
+    <section class="portfolio-section fade-in" id="about">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"># whoami</div>
+                <h2 class="section-title">Architecte de sécurité numérique</h2>
+            </div>
+            <div class="about-grid">
+                <div>
+                    <p>
+                        De mes premiers scripts à la conception d’architectures de sécurité globales, 
+                        j’ai toujours eu la même obsession : réduire le risque tout en gardant les systèmes utilisables.
+                    </p>
+                    <p>
+                        Je conçois et pilote des architectures Zero Trust, des environnements cloud sécurisés et 
+                        des cadres de gouvernance permettant aux organisations de scaler sans compromettre la sécurité.
+                    </p>
+                </div>
+                <ul class="skills-list">
+                    <li>Conception d’architectures de sécurité</li>
+                    <li>Sécurité cloud (AWS/Azure/GCP)</li>
+                    <li>Zero Trust & ZTNA</li>
+                    <li>Gouvernance & gestion des risques</li>
+                    <li>Conformité (ISO 27001, NIST, RGPD)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-        // Keyboard shortcut to enter
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                enterBtn.click();
-            }
-        });
-
-        // Remove typing cursor after animation
-        setTimeout(() => {
-            document.querySelector('.typing-text').style.borderRight = 'none';
-        }, 4000);
-    </script>
-
-    <!-- Language Switcher -->
-    <script src="js/language.js"></script>
-</body>
-</html>
+    <!-- EXPERTISE -->
+    <section class="portfolio-section fade-in" id="expertise">
+        <div class="
