@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esperienze Professionali | Cybersecurity Architect</title>
+    <meta name="description" content="Il mio percorso professionale nella cybersecurity e security architecture.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #111822;
+            --bg-tertiary: #1a2332;
+            --accent-primary: #00ff9d;
+            --accent-secondary: #00d4ff;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b9bb4;
+            --border-color: #2d3748;
+            --gradient-cyber: linear-gradient(135deg, #00ff9d 0%, #00d4ff 100%);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            pointer-events: none;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header/Navigation */
+        header {
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 20, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-cyber);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-cyber);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-primary);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Page header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .page-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.2s;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.4s;
+        }
+
+        .gradient-text {
+            background: var(--gradient-cyber);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Timeline section */
+        .timeline-section {
+            padding: 4rem 0 8rem;
+            position: relative;
+        }
+
+        /* Vertical timeline line */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--accent-primary) 10%, 
+                var(--accent-primary) 90%, 
+                transparent 100%);
+            transform: translateX(-50%);
+        }
+
+        /* Timeline items */
+        .timeline-item {
+            position: relative;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(1) { transition-delay: 0.1s; }
+        .timeline-item:nth-child(2) { transition-delay: 0.2s; }
+        .timeline-item:nth-child(3) { transition-delay: 0.3s; }
+        .timeline-item:nth-child(4) { transition-delay: 0.4s; }
+        .timeline-item:nth-child(5) { transition-delay: 0.5s; }
+
+        /* Alternating layout */
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+            padding-left: 4rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+            padding-right: 4rem;
+        }
+
+        .timeline-content {
+            width: 48%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 255, 157, 0.15);
+        }
+
+        /* Timeline dot */
+        .timeline-dot {
+            position: absolute;
+            top: 2.5rem;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-primary);
+            border: 4px solid var(--bg-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg-secondary);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        /* Timeline connector line */
+        .timeline-connector {
+            position: absolute;
+            top: 2.8rem;
+            height: 2px;
+            background: var(--border-color);
+            width: 4rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-connector {
+            right: 50%;
+            margin-right: 10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-connector {
+            left: 50%;
+            margin-left: 10px;
+        }
+
+        /* Experience header */
+        .experience-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .experience-period::before {
+            content: '📅';
+        }
+
+        .experience-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .experience-company {
+            font-size: 1.1rem;
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .experience-company::before {
+            content: '🏢';
+        }
+
+        .experience-location {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .experience-location::before {
+            content: '📍';
+        }
+
+        /* Experience description */
+        .experience-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Responsibilities list */
+        .responsibilities {
+            margin-bottom: 1.5rem;
+        }
+
+        .responsibilities h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .responsibilities ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .responsibilities li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .responsibilities li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+
+        /* Technologies tags */
+        .technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.4rem 0.9rem;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Achievements */
+        .achievements {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: rgba(0, 255, 157, 0.05);
+            border-left: 3px solid var(--accent-primary);
+            border-radius: 6px;
+        }
+
+        .achievements h4 {
+            font-size: 0.95rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .achievements h4::before {
+            content: '🏆';
+        }
+
+        .achievements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .achievements li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.4rem;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .achievements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+
+        /* Download CV section */
+        .download-cv-section {
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 2rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 2.5rem;
+            background: var(--gradient-cyber);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.4);
+        }
+
+        .download-btn::before {
+            content: '📄';
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .timeline-line {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px;
+                padding: 1.5rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .timeline-dot {
+                left: 30px !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
+            }
+
+            .timeline-connector {
+                display: none;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .experience-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Smooth scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">&lt;/cyber&gt;</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="esperienze.html" class="active">Esperienze</a></li>
+                <li><a href="portfolio.html#contatti">Contatti</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <span class="page-tag">// Il mio percorso</span>
+                <h1 class="page-title">
+                    Esperienze <span class="gradient-text">Professionali</span>
+                </h1>
+                <p class="page-description">
+                    Oltre [X] anni di esperienza nella progettazione e implementazione di architetture di sicurezza enterprise
+                </p>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="container">
+                <div class="timeline-line"></div>
+
+                <!-- Experience 1 - ESEMPIO DA PERSONALIZZARE -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="experience-period">Gen 2023 - Presente</div>
+                            <h3 class="experience-title">Lead Security Architect</h3>
+                            <div class="experience-company">TechCorp Global</div>
+                            <div class="experience-location">Milano, Italia</div>
+                        </div>
+
+                        <p class="experience-description">
+                            Responsabile della progettazione e implementazione dell'architettura di sicurezza enterprise per 
+                            organizzazione multinazionale con 10.000+ dipendenti distribuiti in 25 paesi.
+                        </p>
+
+                        <div class="responsibilities">
+                            <h4>Responsabilità principali:</h4>
+                            <ul>
+                                <li>Design e implementazione di Zero Trust architecture per infrastruttura ibrida cloud/on-premise</li>
+                                <li>Leadership tecnica per team di 8 security engineers</li>
+                                <li>Progettazione di security governance framework basato su NIST CSF e ISO 27001</li>
+                                <li>Architettura di SIEM enterprise (Splunk) con integration di 150+ data sources</li>
+                                <li>Cloud security strategy per migrazione AWS e Azure (multi-account architecture)</li>
+                            </ul>
+                        </div>
+
+                        <div class="achievements">
+                            <h4>Risultati chiave:</h4>
+                            <ul>
+                                <li>Riduzione del 65% della superficie d'attacco tramite micro-segmentation</li>
+                                <li>Ottenuto certificazione SOC 2 Type II in 6 mesi</li>
+                                <li>Implementato IAM centralizzato per 120+ applicazioni (SSO, MFA)</li>
+                                <li>Ridotto incident response time da 4 ore a 25 minuti con SOAR automation</li>
+                            </ul>
+                        </div>
+
+                        <div class="technologies">
+                            <span class="tech-tag">AWS Security</span>
+                            <span class="tech-tag">Azure Security</span>
+                            <span class="tech-tag">Zero Trust</span>
+                            <span class="tech-tag">Splunk</span>
+                            <span class="tech-tag">Terraform</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">Okta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 2 - ESEMPIO DA PERSONALIZZARE -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="experience-period">Mar 2020 - Dic 2022</div>
+                            <h3 class="experience-title">Senior Security Architect</h3>
+                            <div class="experience-company">Financial Services Inc.</div>
+                            <div class="experience-location">Roma, Italia</div>
+                        </div>
+
+                        <p class="experience-description">
+                            Security architect per istituto bancario con focus su compliance PCI-DSS, protezione dati 
+                            sensibili e architetture cloud-native sicure.
+                        </p>
+
+                        <div class="responsibilities">
+                            <h4>Responsabilità principali:</h4>
+                            <ul>
+                                <li>Design di architettura multi-cloud per cardholder data environment (PCI-DSS Level 1)</li>
+                                <li>Implementazione di privileged access management (CyberArk) per 500+ admin accounts</li>
+                                <li>Architettura di network segmentation con micro-segmentation per workload critici</li>
+                                <li>Threat modeling per applicazioni fintech (STRIDE methodology)</li>
+                                <li>Security review di applicazioni mobile banking e API gateway</li>
+                            </ul>
+                        </div>
+
+                        <div class="achievements">
+                            <h4>Risultati chiave:</h4>
+                            <ul>
+                                <li>Ottenuto PCI-DSS Level 1 compliance al primo audit (zero findings critici)</li>
+                                <li>Ridotto fraud rate del 73% con implementazione di risk-based authentication</li>
+                                <li>Progettato DR/BCP strategy con RPO < 1 ora per sistemi critici</li>
+                                <li>Implementato secrets management con HashiCorp Vault per 200+ applicazioni</li>
+                            </ul>
+                        </div>
+
+                        <div class="technologies">
+                            <span class="tech-tag">PCI-DSS</span>
+                            <span class="tech-tag">CyberArk</span>
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">WAF</span>
+                            <span class="tech-tag">Vault</span>
+                            <span class="tech-tag">NGFW</span>
+                            <span class="tech-tag">CASB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 3 - ESEMPIO DA PERSONALIZZARE -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="experience-period">Lug 2018 - Feb 2020</div>
+                            <h3 class="experience-title">Security Engineer / Architect</h3>
+                            <div class="experience-company">CloudTech Solutions</div>
+                            <div class="experience-location">Torino, Italia</div>
+                        </div>
+
+                        <p class="experience-description">
+                            Security engineer con focus su cloud security, container orchestration e DevSecOps per 
+                            azienda SaaS B2B con 500K+ utenti finali.
+                        </p>
+
+                        <div class="responsibilities">
+                            <h4>Responsabilità principali:</h4>
+                            <ul>
+                                <li>Design e implementation di container security per Kubernetes (200+ microservices)</li>
+                                <li>Integration di security scanning in CI/CD pipeline (SAST, DAST, SCA)</li>
+                                <li>Implementation di service mesh (Istio) per mTLS e network policies</li>
+                                <li>Hardening di AWS infrastructure secondo CIS benchmarks</li>
+                                <li>Development di security automation tools in Python e Go</li>
+                            </ul>
+                        </div>
+
+                        <div class="achievements">
+                            <h4>Risultati chiave:</h4>
+                            <ul>
+                                <li>Ridotto vulnerabilità critiche in produzione del 95% con shift-left security</li>
+                                <li>Implementato runtime security con Falco (100% coverage su containers)</li>
+                                <li>Automatizzato security compliance checks con Policy as Code (OPA)</li>
+                                <li>Ottenuto ISO 27001 certification per infrastruttura cloud</li>
+                            </ul>
+                        </div>
+
+                        <div class="technologies">
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">Istio</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Falco</span>
+                            <span class="tech-tag">GitLab CI</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">OPA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 4 - ESEMPIO DA PERSONALIZZARE -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="experience-period">Gen 2016 - Giu 2018</div>
+                            <h3 class="experience-title">Security Consultant</h3>
+                            <div class="experience-company">SecureIT Consulting</div>
+                            <div class="experience-location">Milano, Italia</div>
+                        </div>
+
+                        <p class="experience-description">
+                            Consulente di sicurezza informatica per PMI e enterprise clienti in diversi settori 
+                            (finance, healthcare, retail, manufacturing).
+                        </p>
+
+                        <div class="responsibilities">
+                            <h4>Responsabilità principali:</h4>
+                            <ul>
+                                <li>Penetration testing di web applications, networks e mobile apps</li>
+                                <li>Vulnerability assessments e security audits (GDPR, NIS, ISO 27001)</li>
+                                <li>Design di security architectures per SMB (firewall, IDS/IPS, VPN)</li>
+                                <li>Security awareness training per dipendenti e management</li>
+                                <li>Incident response e digital forensics per security breaches</li>
+                            </ul>
+                        </div>
+
+                        <div class="achievements">
+                            <h4>Risultati chiave:</h4>
+                            <ul>
+                                <li>Completati 50+ penetration tests con discovery di 200+ vulnerabilità critiche</li>
+                                <li>Assistito 15+ aziende nell'ottenimento di GDPR compliance</li>
+                                <li>Identificato e contenuto 3 APT attacks per clienti enterprise</li>
+                                <li>Condotto security training per 1000+ dipendenti</li>
+                            </ul>
+                        </div>
+
+                        <div class="technologies">
+                            <span class="tech-tag">Burp Suite</span>
+                            <span class="tech-tag">Metasploit</span>
+                            <span class="tech-tag">Nmap</span>
+                            <span class="tech-tag">Wireshark</span>
+                            <span class="tech-tag">GDPR</span>
+                            <span class="tech-tag">ISO 27001</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aggiungi altre esperienze qui seguendo lo stesso pattern -->
+
+            </div>
+        </section>
+
+        <!-- Download CV Section -->
+        <section class="download-cv-section">
+            <div class="container">
+                <a href="#" class="download-btn">
+                    Scarica il mio CV completo
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 [Il Tuo Nome]. Tutti i diritti riservati.</p>
+            <p style="opacity: 0.6; font-size: 0.9rem;">Security by design, architected for resilience</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
